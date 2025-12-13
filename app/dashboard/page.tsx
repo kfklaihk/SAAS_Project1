@@ -59,7 +59,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <InputForm disabled={!isActive} />
+      <InputForm />
 
       <section className="mt-8 grid gap-4">
         {docs.map(d => <ResultCard key={d.id} doc={d} />)}

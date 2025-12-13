@@ -33,14 +33,17 @@ export async function POST(req: Request) {
     }
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
     customer: customerId,
     line_items: [{ price: plan === 'annual' ? PRICE_IDS.annual : PRICE_IDS.monthly, quantity: 1 }],
-    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?status=success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?status=cancel`,
+    success_url: `${baseUrl}/dashboard?status=success`,
+    cancel_url: `${baseUrl}/dashboard?status=cancel`,
     allow_promotion_codes: true,
     automatic_tax: { enabled: true },
+    customer_update:{'address': 'auto'},
     currency: 'hkd', // or 'usd'
   });
 

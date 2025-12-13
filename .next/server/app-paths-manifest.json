@@ -1,4 +1,10 @@
 {
-  "/page": "app/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/ai/route": "app/api/ai/route.js",
+  "/api/stripe/portal/route": "app/api/stripe/portal/route.js",
+  "/api/stripe/session/route": "app/api/stripe/session/route.js",
+  "/api/stripe/webhook/route": "app/api/stripe/webhook/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/page": "app/page.js"
 }

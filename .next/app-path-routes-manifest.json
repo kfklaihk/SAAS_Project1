@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/ai/route": "/api/ai",
+  "/api/stripe/portal/route": "/api/stripe/portal",
+  "/api/stripe/session/route": "/api/stripe/session",
+  "/api/stripe/webhook/route": "/api/stripe/webhook",
+  "/dashboard/page": "/dashboard",
+  "/page": "/"
+}

@@ -16,3 +16,14 @@ create table if not exists documents (
   output jsonb,
   created_at timestamp with time zone default now()
 );
+
+-- Track API usage for free users (quota: 5 calls per 24 hours, reset daily at 00:00 +8 GMT)
+create table if not exists api_usage (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  usage_date date,
+  call_count integer default 0,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now(),
+  unique(user_id, usage_date)
+);

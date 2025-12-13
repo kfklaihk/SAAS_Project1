@@ -1,23 +1,20 @@
 // /components/Pricing.tsx
 'use client';
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 
 export default function Pricing() {
-  const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams();
-  const userIdParam = searchParams.get('id');
+  const [loadingPlan, setLoadingPlan] = useState<'monthly' | 'annual' | null>(null);
 
   const handleUpgrade = async (plan: 'monthly' | 'annual') => {
-    setLoading(true);
+    setLoadingPlan(plan);
     try {
       const { data } = await supabase.auth.getSession();
       const session = data.session;
 
       if (!session) {
         alert('Please sign in first');
-        setLoading(false);
+        setLoadingPlan(null);
         return;
       }
 
@@ -44,7 +41,7 @@ export default function Pricing() {
       console.error('Upgrade error:', error);
       alert('Failed to initiate upgrade. Please try again.');
     } finally {
-      setLoading(false);
+      setLoadingPlan(null);
     }
   };
 
@@ -69,10 +66,10 @@ export default function Pricing() {
         </ul>
         <button
           onClick={() => handleUpgrade('monthly')}
-          disabled={loading}
+          disabled={loadingPlan !== null}
           className="mt-6 w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold transition"
         >
-          {loading ? 'Processing...' : 'Upgrade Monthly'}
+          {loadingPlan === 'monthly' ? 'Processing...' : 'Upgrade Monthly'}
         </button>
       </div>
 
@@ -98,10 +95,10 @@ export default function Pricing() {
         </ul>
         <button
           onClick={() => handleUpgrade('annual')}
-          disabled={loading}
+          disabled={loadingPlan !== null}
           className="mt-6 w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold transition"
         >
-          {loading ? 'Processing...' : 'Upgrade Annually'}
+          {loadingPlan === 'annual' ? 'Processing...' : 'Upgrade Annually'}
         </button>
       </div>
     </div>
